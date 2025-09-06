@@ -1,0 +1,763 @@
+<script async="async" data-cfasync="false" src="//pl27589014.revenuecpmgate.com/0fbed26563b14e7cca85cac4de17ca3f/invoke.js"></script>
+<div id="container-0fbed26563b14e7cca85cac4de17ca3f"></div>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="appTitle">Global News Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background-color: #f0f2f5; /* Light gray */
+            --text-color: #34495e; /* Dark slate gray */
+            --card-background: #ffffff; /* White */
+            --header-background: #2c3e50; /* Dark blue-gray */
+            --header-text: #ecf0f1; /* Light gray */
+            --button-background: #3498db; /* Bright blue */
+            --button-text: #ffffff; /* White */
+            --link-color: #3498db; /* Bright blue */
+            --border-color: #e0e6ed; /* Lighter gray */
+            --hover-background: #2980b9; /* Darker blue */
+            --input-background: #ffffff;
+            --input-border: #cccccc;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body.dark-theme {
+            --background-color: #282c35; /* Dark background */
+            --text-color: #ecf0f1; /* Light text */
+            --card-background: #3a3f4b; /* Dark card */
+            --header-background: #20232a; /* Even darker header */
+            --header-text: #ecf0f1;
+            --button-background: #5dade2; /* Lighter blue */
+            --button-text: #282c35; /* Dark button text */
+            --link-color: #5dade2;
+            --border-color: #4a4f5d;
+            --hover-background: #3498db; /* Original blue */
+            --input-background: #3a3f4b;
+            --input-border: #5a5f6b;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--header-background);
+            color: var(--header-text);
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            position: relative;
+            z-index: 100;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+
+        .header-controls {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .theme-toggle, .lang-select {
+            background: none;
+            border: 1px solid var(--header-text);
+            color: var(--header-text);
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            appearance: none; /* For select dropdown */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+        .lang-select {
+            padding-right: 2.5rem; /* Space for dropdown arrow */
+            background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* White arrow */
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+            background-size: 1em;
+        }
+        body.dark-theme .lang-select {
+            background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.3w.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* White arrow for dark theme too */
+        }
+        .theme-toggle:hover, .lang-select:hover {
+            background-color: var(--header-text);
+            color: var(--header-background);
+        }
+        .lang-select option {
+            background-color: var(--header-background);
+            color: var(--header-text);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 25px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            align-items: stretch; /* Stretch items to fill height */
+            background-color: var(--card-background);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-bar input[type="text"] {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: var(--input-background);
+            color: var(--text-color);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-bar input[type="text"]:focus {
+            border-color: var(--link-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .search-bar button, .category-filter button {
+            padding: 12px 20px;
+            background-color: var(--button-background);
+            color: var(--button-text);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            white-space: nowrap; /* Prevent button text from wrapping */
+        }
+
+        .search-bar button:hover, .category-filter button:hover {
+            background-color: var(--hover-background);
+            transform: translateY(-2px);
+        }
+        .search-bar button:active, .category-filter button:active {
+            transform: translateY(0);
+        }
+
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            flex-grow: 2; /* Allow categories to take more space */
+            justify-content: center;
+        }
+
+        .category-filter button {
+            background-color: #bdc3c7; /* Lighter gray for inactive */
+            color: var(--text-color);
+            border: 1px solid #bdc3c7;
+            padding: 10px 18px;
+        }
+        body.dark-theme .category-filter button {
+            background-color: #6c7a89;
+            color: var(--header-text);
+            border-color: #6c7a89;
+        }
+
+        .category-filter button.active {
+            background-color: var(--button-background);
+            color: var(--button-text);
+            border-color: var(--button-background);
+            font-weight: 600;
+        }
+        body.dark-theme .category-filter button.active {
+            background-color: var(--hover-background);
+            border-color: var(--hover-background);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .news-card {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        body.dark-theme .news-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .news-card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            line-height: 1.35;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .news-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            flex-grow: 1;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .news-card a {
+            display: inline-block;
+            margin-top: auto;
+            background-color: var(--link-color);
+            color: var(--button-text);
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .news-card a:hover {
+            background-color: var(--hover-background);
+            transform: translateY(-2px);
+        }
+        .news-card a:active {
+            transform: translateY(0);
+        }
+
+
+        .loading-animation {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 150px;
+        }
+
+        .loader {
+            border: 6px solid var(--border-color);
+            border-top: 6px solid var(--link-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 1.3rem;
+            color: var(--text-color);
+            display: none;
+            background-color: var(--card-background);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            margin-top: 20px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .header-controls {
+                right: 15px;
+                gap: 8px;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            .controls {
+                flex-direction: column;
+            }
+            .search-bar {
+                width: 100%;
+            }
+            .category-filter {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+                padding-right: 120px; /* Make space for controls */
+            }
+            .header-controls {
+                flex-direction: column;
+                top: 10px;
+                bottom: 10px;
+                transform: translateY(0);
+                right: 10px;
+                justify-content: center;
+                gap: 5px;
+            }
+            .theme-toggle, .lang-select {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.85rem;
+            }
+            .lang-select {
+                background-position: right 0.5rem center;
+                padding-right: 2rem;
+            }
+
+            .container {
+                margin: 20px auto;
+                padding: 0 15px;
+            }
+
+            .controls {
+                padding: 15px;
+                gap: 10px;
+            }
+            .search-bar {
+                flex-direction: column;
+            }
+            .search-bar input[type="text"],
+            .search-bar button {
+                width: 100%;
+            }
+
+            .category-filter {
+                gap: 6px;
+                justify-content: center;
+            }
+            .category-filter button {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .news-card img {
+                height: 180px;
+            }
+
+            .news-card-content {
+                padding: 15px;
+            }
+
+            .news-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .news-card p {
+                font-size: 0.9rem;
+            }
+            .news-card a {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="headerTitle">Global News Hub</h1>
+        <div class="header-controls">
+            <select id="languageSelect" class="lang-select">
+                <option value="en">English</option>
+                <option value="ne">नेपाली (Nepali)</option>
+                <option value="hi">हिंदी (Hindi)</option>
+            </select>
+            <button class="theme-toggle" id="themeToggle"></button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="">
+                <button id="searchButton"></button>
+            </div>
+            <div class="category-filter" id="categoryFilter">
+                <button data-category="breaking-news" class="active"></button>
+                <button data-category="world"></button>
+                <button data-category="technology"></button>
+                <button data-category="business"></button>
+                <button data-category="health"></button>
+                <button data-category="sports"></button>
+                <button data-category="entertainment"></button>
+                <button data-category="science"></button>
+            </div>
+        </div>
+
+        <div class="loading-animation" id="loadingAnimation">
+            <div class="loader"></div>
+        </div>
+
+        <div class="no-results" id="noResultsMessage"></div>
+
+        <div class="news-grid" id="newsGrid">
+            <!-- News articles will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // REMINDER: Replace with your ACTUAL GNews API key!
+        const API_KEY = "41e0864ef98fd3b51d048c2cfb9ab66c";
+        const BASE_URL = "https://gnews.io/api/v4/";
+
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const newsGrid = document.getElementById('newsGrid');
+        const loadingAnimation = document.getElementById('loadingAnimation');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        const themeToggle = document.getElementById('themeToggle');
+        const languageSelect = document.getElementById('languageSelect');
+        const headerTitle = document.getElementById('headerTitle');
+        const appTitle = document.getElementById('appTitle');
+
+        let currentCategory = 'breaking-news';
+        let currentQuery = '';
+        let currentLanguage = 'en'; // Default language
+
+        const translations = {
+            en: {
+                appTitle: "Global News Hub",
+                headerTitle: "Global News Hub",
+                themeToggle: "Dark/Light",
+                searchPlaceholder: "Search for news...",
+                searchButton: "Search",
+                readMore: "Read More",
+                noResults: "No news articles found for your search. Try a different keyword or category!",
+                categories: {
+                    "breaking-news": "Breaking News",
+                    "world": "World",
+                    "technology": "Technology",
+                    "business": "Business",
+                    "health": "Health",
+                    "sports": "Sports",
+                    "entertainment": "Entertainment",
+                    "science": "Science"
+                }
+            },
+            ne: {
+                appTitle: "विश्व समाचार केन्द्र",
+                headerTitle: "विश्व समाचार केन्द्र",
+                themeToggle: "गाढा/हल्का",
+                searchPlaceholder: "समाचार खोज्नुहोस्...",
+                searchButton: "खोज्नुहोस्",
+                readMore: "थप पढ्नुहोस्",
+                noResults: "तपाईंको खोजीका लागि कुनै समाचार लेख भेटिएन। फरक कुञ्जीशब्द वा वर्ग प्रयास गर्नुहोस्!",
+                categories: {
+                    "breaking-news": "ताजा समाचार",
+                    "world": "विश्व",
+                    "technology": "प्रविधि",
+                    "business": "व्यवसाय",
+                    "health": "स्वास्थ्य",
+                    "sports": "खेलकुद",
+                    "entertainment": "मनोरञ्जन",
+                    "science": "विज्ञान"
+                }
+            },
+            hi: {
+                appTitle: "वैश्विक समाचार केंद्र",
+                headerTitle: "वैश्विक समाचार केंद्र",
+                themeToggle: "डार्क/लाइट",
+                searchPlaceholder: "समाचार खोजें...",
+                searchButton: "खोजें",
+                readMore: "और पढ़ें",
+                noResults: "आपकी खोज के लिए कोई समाचार लेख नहीं मिला। एक अलग कीवर्ड या श्रेणी आज़माएँ!",
+                categories: {
+                    "breaking-news": "ताजा खबर",
+                    "world": "दुनिया",
+                    "technology": "प्रौद्योगिकी",
+                    "business": "व्यवसाय",
+                    "health": "स्वास्थ्य",
+                    "sports": "खेल",
+                    "entertainment": "मनोरंजन",
+                    "science": "विज्ञान"
+                }
+            }
+        };
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+            // Load language preference
+            const savedLang = localStorage.getItem('language');
+            if (savedLang && translations[savedLang]) {
+                currentLanguage = savedLang;
+                languageSelect.value = savedLang;
+            }
+
+            // Set default category to 'world' if language is Nepali and no other category/query is active
+            if (currentLanguage === 'ne' && !currentQuery && currentCategory === 'breaking-news') {
+                currentCategory = 'world';
+            }
+            
+            applyTranslations(); // Apply translations on load
+            fetchNews(currentCategory); // Fetch initial news
+        });
+
+        // Event Listeners
+        searchButton.addEventListener('click', () => {
+            currentQuery = searchInput.value.trim();
+            currentCategory = ''; // Clear category when searching
+            updateCategoryButtons();
+            // If query is empty, fallback to 'world' for Nepali, otherwise 'breaking-news'
+            const defaultFallback = (currentLanguage === 'ne') ? 'world' : 'breaking-news';
+            fetchNews(currentQuery || defaultFallback, true); 
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchButton.click();
+            }
+        });
+
+        categoryFilter.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON' && e.target.dataset.category) {
+                currentCategory = e.target.dataset.category;
+                currentQuery = ''; // Clear query when selecting category
+                searchInput.value = '';
+                updateCategoryButtons(e.target);
+                fetchNews(currentCategory);
+            }
+        });
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            if (document.body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+            applyTranslations(); // Update theme toggle text after change
+        });
+
+        languageSelect.addEventListener('change', (e) => {
+            currentLanguage = e.target.value;
+            localStorage.setItem('language', currentLanguage);
+            applyTranslations();
+
+            // When language changes, if no specific query is active, reset to a sensible default category
+            if (!currentQuery) {
+                if (currentLanguage === 'ne') {
+                    currentCategory = 'world'; // Default to world news for Nepali
+                } else {
+                    currentCategory = 'breaking-news'; // Default to breaking news for others
+                }
+            }
+            fetchNews(currentCategory); // Refetch news for the new language/category
+        });
+
+        // UI Update Functions
+        function applyTranslations() {
+            const lang = translations[currentLanguage];
+
+            appTitle.textContent = lang.appTitle;
+            headerTitle.textContent = lang.headerTitle;
+            themeToggle.textContent = lang.themeToggle;
+            searchInput.placeholder = lang.searchPlaceholder;
+            searchButton.textContent = lang.searchButton;
+            noResultsMessage.textContent = lang.noResults;
+
+            const categoryButtons = categoryFilter.querySelectorAll('button');
+            categoryButtons.forEach(button => {
+                const categoryKey = button.dataset.category;
+                if (lang.categories[categoryKey]) {
+                    button.textContent = lang.categories[categoryKey];
+                }
+            });
+
+            // Re-apply category active state as text might change
+            updateCategoryButtons();
+        }
+
+        function updateCategoryButtons(activeButton = null) {
+            const buttons = categoryFilter.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+                const categoryKey = button.dataset.category;
+                if (activeButton && button === activeButton) {
+                    button.classList.add('active');
+                } else if (!currentQuery && categoryKey === currentCategory) { // Only activate if no search query
+                     button.classList.add('active');
+                }
+            });
+            // If a search was performed, no category button should be active
+            if (currentQuery) {
+                buttons.forEach(button => button.classList.remove('active'));
+            } else if (!activeButton) { // Activate the currentCategory if no specific button was clicked
+                const currentCategoryButton = document.querySelector(`[data-category="${currentCategory}"]`);
+                if (currentCategoryButton) currentCategoryButton.classList.add('active');
+            }
+        }
+
+        // News Fetching and Display
+        async function fetchNews(param, isSearch = false) {
+            showLoadingAnimation();
+            newsGrid.innerHTML = ''; // Clear previous news
+            noResultsMessage.style.display = 'none';
+
+            let url;
+            let queryText = isSearch ? param : (currentCategory === 'breaking-news' ? 'breaking news' : translations[currentLanguage].categories[currentCategory] || param);
+
+            // Special handling for Nepali 'World' news
+            let apiLang = currentLanguage;
+            let finalQuery = queryText;
+
+            // If Nepali is selected, prioritize searching for 'world' and use Nepali keywords in query
+            if (currentLanguage === 'ne') {
+                apiLang = 'en'; // GNews API lang=ne is not officially supported for content
+                if (isSearch && param) {
+                     finalQuery = param + " news Nepal"; // Add context for search in Nepali if user searches
+                } else if (currentCategory === 'world') {
+                    finalQuery = "world news Nepal"; // Explicitly search for "world news Nepal" in English
+                } else {
+                    finalQuery = translations['en'].categories[currentCategory] + " news Nepal"; // Fallback to English category name + Nepal
+                }
+            } else if (currentLanguage === 'hi') {
+                apiLang = 'en'; // GNews API lang=hi is not officially supported for content
+                if (isSearch && param) {
+                     finalQuery = param + " news India"; // Add context for search in Hindi if user searches
+                } else if (currentCategory === 'world') {
+                    finalQuery = "world news India"; // Explicitly search for "world news India" in English
+                } else {
+                    finalQuery = translations['en'].categories[currentCategory] + " news India"; // Fallback to English category name + India
+                }
+            } else {
+                // For officially supported GNews languages, use the direct category/query
+                // And try to use the language of the UI
+                if (!['en', 'de', 'es', 'fr', 'it', 'nl', 'pt', 'ru', 'zh'].includes(apiLang)) {
+                    apiLang = 'en'; // Fallback to English for API request if GNews doesn't support the language
+                }
+                finalQuery = queryText;
+            }
+
+
+            url = `${BASE_URL}search?q=${encodeURIComponent(finalQuery)}&token=${API_KEY}&lang=${apiLang}`;
+
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.articles && data.articles.length > 0) {
+                    displayNews(data.articles);
+                } else {
+                    noResultsMessage.style.display = 'block';
+                }
+            } catch (error) {
+                console.error("Error fetching news:", error);
+                noResultsMessage.textContent = translations[currentLanguage].noResults; // Use translated message
+                noResultsMessage.style.display = 'block';
+            } finally {
+                hideLoadingAnimation();
+            }
+        }
+
+        function displayNews(articles) {
+            articles.forEach(article => {
+                const newsCard = document.createElement('div');
+                newsCard.classList.add('news-card');
+
+                const image = article.image && article.image.startsWith('http') ? article.image : 'https://via.placeholder.com/400x220/3498db/ffffff?text=No+Image';
+                const title = article.title || translations[currentLanguage].categories[currentCategory] || 'Unknown Title';
+                const description = article.description || translations[currentLanguage].noResults.split('.')[0] + '...'; 
+                const url = article.url || '#';
+
+                newsCard.innerHTML = `
+                    <img src="${image}" alt="${title}">
+                    <div class="news-card-content">
+                        <h3>${title}</h3>
+                        <p>${description}</p>
+                        <a href="${url}" target="_blank" rel="noopener noreferrer">${translations[currentLanguage].readMore}</a>
+                    </div>
+                `;
+                newsGrid.appendChild(newsCard);
+            });
+        }
+
+        function showLoadingAnimation() {
+            loadingAnimation.style.display = 'flex';
+        }
+
+        function hideLoadingAnimation() {
+            loadingAnimation.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+<script type="text/javascript">
+	atOptions = {
+		'key' : '8a23a7f567fed4acde0ac2f93f02b8b0',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/8a23a7f567fed4acde0ac2f93f02b8b0/invoke.js"></script>
